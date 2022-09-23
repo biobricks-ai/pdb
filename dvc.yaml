@@ -10,9 +10,9 @@ stages:
       - download
 
   brick:
-    cmd: bash stages/2_process.sh 
+    cmd: bash stages/2_unzip_build.sh 
     deps: 
       - download
-      - stages/2_process.sh
+      - stages/2_unzip_build.sh
     outs:
       - brick
