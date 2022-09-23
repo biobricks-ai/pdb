@@ -60,7 +60,7 @@ PORT=33444                                                    # port RCSB PDB se
 ############################################################################
 # Rsync the entire FTP archive /pub/pdb (Aproximately 250 GB)
 ############################################################################
-${RSYNC} -rlpt -v -z --delete --port=$PORT ${SERVER}/ $MIRRORDIR > $LOGFILE 2>/dev/null
+# ${RSYNC} -rlpt -v -z --delete --port=$PORT ${SERVER}/ $MIRRORDIR > $LOGFILE 2>/dev/null
 
 
 ############################################################################
@@ -91,7 +91,7 @@ ${RSYNC} -rlpt -v -z --delete --port=$PORT ${SERVER}/ $MIRRORDIR > $LOGFILE 2>/d
 ############################################################################
 # Rsync only the PDB format coordinates  /pub/pdb/data/structures/divided/pdb (Aproximately 20 GB)
 ############################################################################
-#${RSYNC} -rlpt -v -z --delete --port=$PORT ${SERVER}/data/structures/divided/pdb/ $MIRRORDIR > $LOGFILE 2>/dev/null
+${RSYNC} -rlpt -v -z --delete --port=$PORT ${SERVER}/data/structures/divided/pdb/ $MIRRORDIR > $LOGFILE 2>/dev/null
 
 
 ############################################################################
