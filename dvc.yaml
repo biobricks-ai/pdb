@@ -3,15 +3,16 @@
 stages:
   
   download:
-    cmd: bash src/1_rsyncPDB.sh 
+    cmd: bash stages/1_download.sh 
     deps:
-      - https://files.wwpdb.org/pub/pdb/software/rsyncPDB.sh
+      - stages/1_download.sh
     outs:
       - download
 
-  process:
-    cmd: Rscript src/2_process.R
+  brick:
+    cmd: bash stages/2_process.sh 
     deps: 
       - download
+      - stages/2_process.sh
     outs:
       - brick
