@@ -8,11 +8,14 @@ stages:
       - stages/1_download.sh
     outs:
       - download
+      - temp
 
   brick:
     cmd: bash stages/2_unzip_build.sh 
     deps: 
+      - temp
       - download
       - stages/2_unzip_build.sh
+      - stages/pdb2parquet.py
     outs:
       - brick

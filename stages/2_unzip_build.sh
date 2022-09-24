@@ -20,7 +20,7 @@ cd $rawpath
 xargs mkdir -p < $temppath/dirs.txt
 cd $rawpath
 
-brickpath="$localpath/brick/compound.parquet"
+brickpath="$localpath/brick"
 mkdir -p $brickpath
 echo "Data path: $brickpath"
 cd $brickpath
