@@ -10,3 +10,18 @@ stages:
     - path: data/mtcars.parquet
       md5: 77cf29accf9535522fad7db1486eff9a
       size: 6243
+  download:
+    cmd: bash stages/1_download.sh
+    deps:
+    - path: stages/1_download.sh
+      md5: 03edb6b876f389104ff8704b739b0727
+      size: 705
+    outs:
+    - path: download
+      md5: 0fc3b9c79ee2c28643ecd5a1bbc08053.dir
+      size: 41175300323
+      nfiles: 192329
+    - path: temp
+      md5: e4dcf74b1265e0ac85d9de69c509b23d.dir
+      size: 3180
+      nfiles: 1

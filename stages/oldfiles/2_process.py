@@ -10,6 +10,9 @@ OutFileName = sys.argv[2]
 
 parser = PDBParser(PERMISSIVE=1)
 
+def process_pdb(f_in, d_f):
+
+    f_in = gzip.open(f_in, 'rt')
     structure = parser.get_structure("11", file=f_in)
     f_in.close()
 
