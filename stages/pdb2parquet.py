@@ -1,14 +1,19 @@
 import gzip
-import xml.etree.ElementTree as ET
-import shutil
 from os import listdir, path
 from Bio.PDB.PDBParser import PDBParser
 import pandas as pd
-
-InFileName = sys.argv[1]
-OutFileName = sys.argv[2]
+import sys
 
 parser = PDBParser(PERMISSIVE=1)
+
+
+def process_pdb(f_in, d_f):
+    """
+    Take a pdb file and convert header in table
+    args: 
+    - <f_in> path pdb file in
+    - <d_f> dict as dataframe to add header extracted 
+    """
 
     f_in = gzip.open(f_in, 'rt')
     structure = parser.get_structure("11", file=f_in)
@@ -41,25 +46,25 @@ parser = PDBParser(PERMISSIVE=1)
             d_f[k_union].append("NA")
 
 
-## MAIN
-p_dir_download = "/mnt/nvme/aborrel/git/protein-data-bank/download/data/"
+## MAIN ##
+##########
+InDirPath = sys.argv[1]
+OutFileName = sys.argv[2]
 
 
-# open pdb
-p_dir_PDB = p_dir_download + "structures/all/pdb/"
 
 # test on the first file
-l_fildir = listdir(p_dir_PDB)
+l_dir = listdir(InDirPath)
 
-d_f = {}
-for f_pdb in l_fildir:
-    pf_PDB = p_dir_PDB + f_pdb
-    process_pdb(pf_PDB, d_f)
+dict_out = {}
 
-#print(d_f)
-df_out = pd.DataFrame(data=d_f)
+for dir_pdb in l_dir[:2]:
+    l_f_pdb = listdir(InDirPath + dir_pdb)
+    for f_pdb in l_f_pdb:
+        pf_PDB = "%s%s/%s"%(InDirPath, dir_pdb, f_pdb)
+        process_pdb(pf_PDB, dict_out)
 
-#write in csv
-p_out = "./test.csv"
-df_out.to_csv(p_out)
+
+df_out = pd.DataFrame(data=dict_out)
+df_out.to_parquet(OutFileName, compression='gzip')
 
