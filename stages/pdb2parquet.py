@@ -52,7 +52,7 @@ p_dir_PDB = p_dir_download + "structures/all/pdb/"
 l_fildir = listdir(p_dir_PDB)
 
 d_f = {}
-for f_pdb in l_fildir[:10]:
+for f_pdb in l_fildir:
     pf_PDB = p_dir_PDB + f_pdb
     process_pdb(pf_PDB, d_f)
 
