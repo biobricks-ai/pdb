@@ -5,11 +5,10 @@ from os import listdir, path
 from Bio.PDB.PDBParser import PDBParser
 import pandas as pd
 
+InFileName = sys.argv[1]
+OutFileName = sys.argv[2]
 
 parser = PDBParser(PERMISSIVE=1)
-
-
-def process_pdb(f_in, d_f):
 
     f_in = gzip.open(f_in, 'rt')
     structure = parser.get_structure("11", file=f_in)
@@ -42,23 +41,21 @@ def process_pdb(f_in, d_f):
             d_f[k_union].append("NA")
 
 
-
 ## MAIN
-p_dir_PDB = "/mnt/md0/biobricks/pdb/download/"
+p_dir_download = "/mnt/nvme/aborrel/git/protein-data-bank/download/data/"
+
+
+# open pdb
+p_dir_PDB = p_dir_download + "structures/all/pdb/"
 
 # test on the first file
-l_dirPDB = listdir(p_dir_PDB)
+l_fildir = listdir(p_dir_PDB)
 
 d_f = {}
-count = 0
-for dirpdb in l_dirPDB[:10]:
-    l_filepdb = listdir(p_dir_PDB + dirpdb)
-    for f_pdb in l_filepdb:
-        pf_PDB = p_dir_PDB + dirpdb + "/" + f_pdb
-        count = count + 1
-        process_pdb(pf_PDB, d_f)
+for f_pdb in l_fildir[:10]:
+    pf_PDB = p_dir_PDB + f_pdb
+    process_pdb(pf_PDB, d_f)
 
-print(count)
 #print(d_f)
 df_out = pd.DataFrame(data=d_f)
 
