@@ -10,6 +10,7 @@ OutFileName = sys.argv[2]
 
 parser = PDBParser(PERMISSIVE=1)
 
+    f_in = gzip.open(f_in, 'rt')
     structure = parser.get_structure("11", file=f_in)
     f_in.close()
 
@@ -21,7 +22,6 @@ parser = PDBParser(PERMISSIVE=1)
     for k in structure.header.keys():
         d_temp[k] = structure.header[k]
     
-    print(d_temp)
     if d_f != {}:
         n_data_in = len(d_f[list(d_f.keys())[0]])
     else:
@@ -29,14 +29,16 @@ parser = PDBParser(PERMISSIVE=1)
 
     # l_inter
     l_union = list(set(list(d_temp.keys())) | set(list(d_f.keys())))
+    l_inter = list(set(list(d_temp.keys())) & set(list(d_f.keys())))
     
     for k_union in l_union:
-        if k_union in list(d_f.keys()):
+        if k_union in l_inter:
             d_f[k_union].append(d_temp[k_union])
-        else:
+        elif k_union in list(d_temp.keys()):
             d_f[k_union] = ["NA"] * n_data_in
             d_f[k_union].append(d_temp[k_union])
-
+        else:
+            d_f[k_union].append("NA")
 
 
 ## MAIN
