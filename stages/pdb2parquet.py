@@ -58,7 +58,7 @@ l_dir = listdir(InDirPath)
 
 dict_out = {}
 
-for dir_pdb in l_dir[:2]:
+for dir_pdb in l_dir:
     l_f_pdb = listdir(InDirPath + dir_pdb)
     for f_pdb in l_f_pdb:
         pf_PDB = "%s%s/%s"%(InDirPath, dir_pdb, f_pdb)
@@ -66,5 +66,5 @@ for dir_pdb in l_dir[:2]:
 
 
 df_out = pd.DataFrame(data=dict_out)
-df_out.to_parquet(OutFileName, compression='gzip')
+df_out.to_parquet(OutFileName)
 
