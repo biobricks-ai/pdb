@@ -18,4 +18,4 @@ stages:
       - stages/2_unzip_build.sh
       - stages/pdb2parquet.py
     outs:
-      - brick
+      - pdb.parquet
